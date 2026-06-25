@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Module that prints FizzBuzz from 1 to 100."""
+
 
 def fizzbuzz():
     """Print numbers 1-100 with Fizz, Buzz, FizzBuzz substitutions."""
