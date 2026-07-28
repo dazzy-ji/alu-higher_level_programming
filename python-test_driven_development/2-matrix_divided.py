@@ -15,7 +15,7 @@ def matrix_divided(matrix, div):
         A new matrix containing the quotient rounded to 2 decimal places.
 
     Raises:
-        TypeError: If matrix is invalid, rows differ in size, or div is not num.
+        TypeError: If matrix is invalid, row sizes differ, or div non-number.
         ZeroDivisionError: If div is equal to 0.
     """
     msg = "matrix must be a matrix (list of lists) of integers/floats"
