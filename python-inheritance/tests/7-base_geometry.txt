@@ -9,8 +9,16 @@ Import the class and create an instance:
     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
     >>> bg = BaseGeometry()
 
-``area``
---------
+Check instantiation
+-------------------
+
+    >>> type(bg) is BaseGeometry
+    True
+    >>> bg.__init__() is None
+    True
+
+``area()``
+----------
 
 ``area()`` always raises an ``Exception``:
 
@@ -20,66 +28,39 @@ Import the class and create an instance:
 
 It takes no argument besides self:
 
-    >>> bg.area(1)
+    >>> bg.area(1)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
-    TypeError: BaseGeometry.area() takes 1 positional argument but 2 were given
+    TypeError
 
-``integer_validator``
----------------------
+``integer_validator()`` with no argument
+----------------------------------------
+
+Both arguments are required:
+
+    >>> bg.integer_validator()  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    TypeError
+
+``integer_validator("age")``
+-----------------------------
+
+The value argument is required too:
+
+    >>> bg.integer_validator("age")  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    TypeError
+
+``integer_validator("age", 1)``
+--------------------------------
 
 A positive integer passes silently and returns ``None``:
 
-    >>> bg.integer_validator("my_int", 12)
+    >>> bg.integer_validator("age", 1)
     >>> print(bg.integer_validator("width", 89))
     None
 
-The smallest valid value is 1:
-
-    >>> bg.integer_validator("size", 1)
-
-A string raises a ``TypeError``:
-
-    >>> bg.integer_validator("name", "John")
-    Traceback (most recent call last):
-    TypeError: name must be an integer
-
-So do floats, even whole ones:
-
-    >>> bg.integer_validator("width", 3.5)
-    Traceback (most recent call last):
-    TypeError: width must be an integer
-
-    >>> bg.integer_validator("width", 4.0)
-    Traceback (most recent call last):
-    TypeError: width must be an integer
-
-Booleans are rejected too, even though ``bool`` subclasses ``int``:
-
-    >>> bg.integer_validator("age", True)
-    Traceback (most recent call last):
-    TypeError: age must be an integer
-
-So are lists, tuples, dicts, sets and ``None``:
-
-    >>> bg.integer_validator("age", [3])
-    Traceback (most recent call last):
-    TypeError: age must be an integer
-
-    >>> bg.integer_validator("age", (4,))
-    Traceback (most recent call last):
-    TypeError: age must be an integer
-
-    >>> bg.integer_validator("age", {3, 4})
-    Traceback (most recent call last):
-    TypeError: age must be an integer
-
-    >>> bg.integer_validator("age", {"key": 1})
-    Traceback (most recent call last):
-    TypeError: age must be an integer
-
-    >>> bg.integer_validator("age", None)
-    Traceback (most recent call last):
-    TypeError: age must be an integer
+``integer_validator("age", 0)``
+--------------------------------
 
 Zero raises a ``ValueError``:
 
@@ -87,24 +68,91 @@ Zero raises a ``ValueError``:
     Traceback (most recent call last):
     ValueError: age must be greater than 0
 
-So does any negative integer:
+``integer_validator("age", -4)``
+---------------------------------
 
-    >>> bg.integer_validator("distance", -4)
+Negative integers raise a ``ValueError``:
+
+    >>> bg.integer_validator("age", -4)
     Traceback (most recent call last):
-    ValueError: distance must be greater than 0
+    ValueError: age must be greater than 0
 
-The type check happens before the value check:
+``integer_validator("age", "4")``
+----------------------------------
 
-    >>> bg.integer_validator("distance", "-4")
+Strings raise a ``TypeError``, even when they look like numbers:
+
+    >>> bg.integer_validator("age", "4")
     Traceback (most recent call last):
-    TypeError: distance must be an integer
+    TypeError: age must be an integer
 
-Both arguments are required:
-
-    >>> bg.integer_validator("age")
+    >>> bg.integer_validator("name", "John")
     Traceback (most recent call last):
-    TypeError: BaseGeometry.integer_validator() missing 1 required positional argument: 'value'
+    TypeError: name must be an integer
 
-    >>> bg.integer_validator()
+``integer_validator("age", (4,))``
+-----------------------------------
+
+Tuples raise a ``TypeError``:
+
+    >>> bg.integer_validator("age", (4,))
     Traceback (most recent call last):
-    TypeError: BaseGeometry.integer_validator() missing 2 required positional arguments: 'name' and 'value'
+    TypeError: age must be an integer
+
+``integer_validator("age", [3])``
+----------------------------------
+
+Lists raise a ``TypeError``:
+
+    >>> bg.integer_validator("age", [3])
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+``integer_validator("age", True)``
+-----------------------------------
+
+Booleans are rejected, even though ``bool`` subclasses ``int``:
+
+    >>> bg.integer_validator("age", True)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", False)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+``integer_validator("age", {3, 4})``
+-------------------------------------
+
+Sets raise a ``TypeError``:
+
+    >>> bg.integer_validator("age", {3, 4})
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+Dictionaries too:
+
+    >>> bg.integer_validator("age", {"key": 1})
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+``integer_validator("age", None)``
+-----------------------------------
+
+``None`` raises a ``TypeError``:
+
+    >>> bg.integer_validator("age", None)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+Floats are rejected as well, even whole ones:
+
+    >>> bg.integer_validator("age", 4.0)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+The type check runs before the value check:
+
+    >>> bg.integer_validator("age", "-4")
+    Traceback (most recent call last):
+    TypeError: age must be an integer

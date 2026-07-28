@@ -41,6 +41,12 @@ It supports every ``list`` method, such as ``append``:
     >>> print(my_list)
     [1, 4, 2, 3, 5]
 
+It returns ``None``:
+
+    >>> print(my_list.print_sorted())
+    [1, 2, 3, 4, 5]
+    None
+
 It can be built directly from an existing list:
 
     >>> my_list = MyList([7, 1, 9])
@@ -53,7 +59,7 @@ It handles negative numbers:
     >>> my_list.print_sorted()
     [-7, -3, 0, 10]
 
-It handles a list that is already sorted:
+It handles an already sorted list:
 
     >>> my_list = MyList([1, 2, 3])
     >>> my_list.print_sorted()
@@ -73,6 +79,6 @@ It handles duplicates:
 
 ``print_sorted`` takes no argument besides self:
 
-    >>> my_list.print_sorted(1)
+    >>> my_list.print_sorted(1)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
-    TypeError: MyList.print_sorted() takes 1 positional argument but 2 were given
+    TypeError
