@@ -1,0 +1,22 @@
+=============================
+Tests for 5-text_indentation.py
+=============================
+
+Import function:
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Basic formatting:
+    >>> text_indentation("Hello. World? Testing: Done")
+    Hello.
+    <BLANKLINE>
+    World?
+    <BLANKLINE>
+    Testing:
+    <BLANKLINE>
+    Done
+
+Type Errors:
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+        ...
+    TypeError: text must be a string
