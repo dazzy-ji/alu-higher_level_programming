@@ -15,6 +15,12 @@ Basic printing:
     #
     >>> print_square(0)
 
+Missing argument:
+    >>> print_square()
+    Traceback (most recent call last):
+        ...
+    TypeError: print_square() missing 1 required positional argument: 'size'
+
 Errors:
     >>> print_square(-1)
     Traceback (most recent call last):
