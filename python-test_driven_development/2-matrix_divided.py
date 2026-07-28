@@ -18,17 +18,17 @@ def matrix_divided(matrix, div):
         TypeError: If matrix is invalid, rows differ in size, or div is not num.
         ZeroDivisionError: If div is equal to 0.
     """
-    err_msg = "matrix must be a matrix (list of lists) of integers/floats"
+    msg = "matrix must be a matrix (list of lists) of integers/floats"
 
     if not isinstance(matrix, list) or len(matrix) == 0:
-        raise TypeError(err_msg)
+        raise TypeError(msg)
 
     for row in matrix:
         if not isinstance(row, list) or len(row) == 0:
-            raise TypeError(err_msg)
+            raise TypeError(msg)
         for elem in row:
             if type(elem) not in (int, float):
-                raise TypeError(err_msg)
+                raise TypeError(msg)
 
     row_len = len(matrix[0])
     for row in matrix:

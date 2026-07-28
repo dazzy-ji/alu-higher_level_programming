@@ -14,37 +14,41 @@ Verify original matrix is unchanged:
     >>> matrix
     [[1, 2, 3], [4, 5, 6]]
 
-Division by infinity:
-    >>> matrix_divided([[1, 2], [3, 4]], float('inf'))
-    [[0.0, 0.0], [0.0, 0.0]]
+Division by float infinity:
+    >>> matrix_divided([[1, 2, 3], [4, 5, 6]], float('inf'))
+    [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
 
-Missing arguments:
+Missing one argument:
     >>> matrix_divided([[1, 2], [3, 4]])
     Traceback (most recent call last):
         ...
     TypeError: matrix_divided() missing 1 required positional argument: 'div'
 
+Missing two arguments:
     >>> matrix_divided()
     Traceback (most recent call last):
         ...
     TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
 
-Errors:
+Type errors for matrix:
     >>> matrix_divided([[1, 2], [3, '4']], 2)
     Traceback (most recent call last):
         ...
     TypeError: matrix must be a matrix (list of lists) of integers/floats
 
+Row size errors:
     >>> matrix_divided([[1, 2], [3]], 2)
     Traceback (most recent call last):
         ...
     TypeError: Each row of the matrix must have the same size
 
+Type errors for div:
     >>> matrix_divided([[1, 2], [3, 4]], "2")
     Traceback (most recent call last):
         ...
     TypeError: div must be a number
 
+Division by zero error:
     >>> matrix_divided([[1, 2], [3, 4]], 0)
     Traceback (most recent call last):
         ...
